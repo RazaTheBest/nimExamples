@@ -18,15 +18,26 @@ class Main(tk.Tk):
         self.theCanvas.bind("<Button-1>", self.mouseClicked)
 
         self.buttonPic = tk.PhotoImage(file="button.png")
+        self.stonePic = tk.PhotoImage(file="Stone.png")
         self.clicked = tk.PhotoImage(file="click.png")
         
         self.canvasbutton = self.theCanvas.create_image(200,800,image = self.buttonPic)
         self.theCanvas.tag_bind(self.canvasbutton, "<Button-1>", self.canvasButtonClicked)
         
-        self.movetext=None
+        self.movetext = None
         self.clickText = None
         self.buttonText = None
+        self.piles= [7,5,3,1]
+        self.drawPiles()
         self.mainloop()
+
+    def drawPiles(self):
+        for p in range(7):
+            y=100
+            for i in pilesize:
+                self.theCanvas.create_image(x,y,image = self.stonePic)
+                y = y +50
+            x = x + 60
 
 
     def buttonClicked(self):
@@ -34,7 +45,7 @@ class Main(tk.Tk):
         y = random.randint(100,700)
         self.theCanvas.delete(self.buttonText)
         self.buttonText = self.theCanvas.create_text(x,y,text="tkinter Button clicked")
-
+ 
     def mouseMoved(self,e):
         self.theCanvas.delete(self.movetext)
         self.movetext = self.theCanvas.create_text(20,20, text=f"moved to {e.x}, {e.y}", anchor="nw")
